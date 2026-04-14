@@ -54,3 +54,4 @@ SELECT
     RANK() OVER (PARTITION BY city ORDER BY total_spent DESC) as spend_rank
 FROM CustomerSpending;
 
+
