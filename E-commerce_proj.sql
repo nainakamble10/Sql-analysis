@@ -38,4 +38,19 @@ SELECT
 FROM
     customers;
 select orderid,amount from orders where amount>(select avg(amount) as avg_amount from orders); 
+WITH CustomerSpending AS (
+    SELECT 
+        c.name, 
+        c.city, 
+        SUM(o.amount) as total_spent
+    FROM customers c
+    JOIN orders o USING (custid)
+    GROUP BY c.name, c.city
+)
+SELECT 
+    name, 
+    city, 
+    total_spent,
+    RANK() OVER (PARTITION BY city ORDER BY total_spent DESC) as spend_rank
+FROM CustomerSpending;
 
