@@ -49,6 +49,11 @@ select Genre,count(*) as total_books from Books group by Genre;
 select Full_name,Join_date from Members where Join_date>'2026-01-01';
 select distinct(Full_name),b.Genre from Loans l join Books b using(Bookid) join Members m using(Memberid) where b.Genre = 'Classic'; 
 select * from Books where Published_year<(select year(min(Join_date)) from Members);
+SELECT b.Author, COUNT(l.Loanid) AS times_borrowed
+FROM Books b
+JOIN Loans l ON b.Bookid = l.Bookid
+GROUP BY b.Author
+ORDER BY times_borrowed DESC;
 
 
  
